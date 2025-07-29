@@ -32,7 +32,7 @@ export const crearPrestamos = async (req, res) => {
 
 // Verificar si un libro está disponible para prestar en el rango de fechas
 export const verificarDisponibilidad = async (req, res) => {
-  const { libroId, fechaInicio, fechaFin } = req.body;
+  const { libro_id, fecha_inicio, fecha_fin } = req.body;
 
   try {
     const [conflictos] = await pool.query(`
@@ -40,7 +40,7 @@ export const verificarDisponibilidad = async (req, res) => {
       WHERE libro_id = ? 
         AND fecha_inicio <= ? 
         AND fecha_fin >= ?
-    `, [libroId, fechaFin, fechaInicio]);
+    `, [libro_id, fecha_inicio, fecha_fin]);
 
     if (conflictos.length > 0) {
       return res.json({ disponible: false });
