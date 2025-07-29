@@ -15,6 +15,7 @@ export const obtenerPrestamos = async (req, res) => {
 export const crearPrestamos = async (req, res) => {
   try {
     const { usuario_id, libro_id, fecha_inicio, fecha_fin } = req.body;
+    console.log("Datos recibidos:", req.body);
 
     const [resultado] = await pool.query(
       `INSERT INTO prestamo (usuario_id, libro_id, fecha_inicio, fecha_fin)
@@ -22,9 +23,10 @@ export const crearPrestamos = async (req, res) => {
       [usuario_id, libro_id, fecha_inicio, fecha_fin]
     );
 
+    console.log("Resultado inserción:", resultado);
     res.status(201).json({ mensaje: "Préstamo creado exitosamente" });
   } catch (error) {
-    console.error("Error en crearPrestamo:", error); // 👈 Este log te dirá qué falla
+    console.error("Error en crearPrestamo:", error);
     res.status(500).json({ mensaje: "Error al crear el préstamo", error: error.message });
   }
 };
