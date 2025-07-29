@@ -25,7 +25,7 @@ export const crearPrestamos = async (req, res) => {
     res.status(201).json({ mensaje: "Préstamo creado exitosamente" });
   } catch (error) {
     console.error("Error en crearPrestamo:", error); // 👈 Este log te dirá qué falla
-    res.status(500).json({ mensaje: "Error al crear el préstamo" });
+    res.status(500).json({ mensaje: "Error al crear el préstamo", error: error.message });
   }
 };
 
