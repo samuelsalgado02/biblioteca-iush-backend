@@ -54,3 +54,22 @@ export const verificarDisponibilidad = async (req, res) => {
     res.status(500).json({ mensaje: 'Error al verificar disponibilidad' });
   }
 };
+
+// prestamo.controllers.js
+
+export const eliminarPrestamo = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [resultado] = await pool.query('DELETE FROM prestamo WHERE id = ?', [id]);
+
+    if (resultado.affectedRows === 0) {
+      return res.status(404).json({ mensaje: 'Préstamo no encontrado' });
+    }
+
+    res.json({ mensaje: 'Préstamo eliminado exitosamente' });
+  } catch (error) {
+    console.error('Error al eliminar préstamo:', error);
+    res.status(500).json({ mensaje: 'Error al eliminar préstamo' });
+  }
+};
+
